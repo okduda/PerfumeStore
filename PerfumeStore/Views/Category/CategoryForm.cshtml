@@ -1,0 +1,48 @@
+﻿@model BusinessLayer.ViewModels.CategoryViewModel
+@{
+    Layout = "_Layout";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-light p-3">
+                    <li class="breadcrumb-item"><a href="~/Admin/Index">Admin Page</a></li>
+                    <li class="breadcrumb-item"><a href="~/Category/Index">Categories</a></li>
+                    @if (Model.Id == Guid.Empty)
+                    {
+                        <li class="breadcrumb-item active" aria-current="page">
+                            New Category
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Edit Category
+                        </li>
+                    }
+
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <form method="post">
+                <input type="hidden" name="Id" value="@Model.Id" />
+
+                <label class="form-label" for="CategoryName">Name</label>
+                <input class="form-control" type="text" name="Name" id="CategoryName" value="@Model.Name" />
+
+                @if (Model.Id == Guid.Empty)
+                {
+                    <input class="btn btn-primary mt-3" type="submit" value="Add New" formaction="~/Category/SaveCategory" />
+                }
+                else
+                {
+                    <input class="btn btn-success mt-3" type="submit" value="Save Changes" formaction="~/Category/UpdateCategory" />
+                }
+            </form>
+        </div>
+    </div>
+</div>

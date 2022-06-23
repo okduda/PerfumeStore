@@ -1,0 +1,57 @@
+﻿@model IEnumerable<BusinessLayer.ViewModels.BrandViewModel>
+@{
+    Layout = "_Layout";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-light p-3">
+                    <li class="breadcrumb-item"><a href="~/Admin/Index">Admin Page</a></li>
+                    <li class="breadcrumb-item active">Brands</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <a href="~/Brand/BrandForm" class="btn btn-primary">Add New</a>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Id</th>
+                        <th scope="col">Country</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var brand in Model)
+                    {
+                        <tr>
+                            <td>@brand.Name</td>
+                            <td>@brand.Id</td>
+                            <td>@brand.Country</td>
+                            <td>
+                                <form method="post">
+                                    <input type="hidden" name="Id" value="@brand.Id" />
+                                    <input class="btn btn-warning" type="submit" value="Edit" formaction="~/Brand/BrandForm" />
+                                </form>
+                            </td>
+                            <td>
+                                <form method="post">
+                                    <input type="hidden" name="Id" value="@brand.Id" />
+                                    <input class="btn btn-danger" type="submit" value="Delete" formaction="~/Brand/DeleteBrand" />
+                                </form>
+
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

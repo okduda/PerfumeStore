@@ -1,0 +1,68 @@
+﻿@model BusinessLayer.ViewModels.PerfumeFormViewModel
+@{
+    Layout = "_Layout"; 
+}.
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-light p-3">
+                    <li class="breadcrumb-item"><a href="~/Admin/Index">Admin Page</a></li>
+                    <li class="breadcrumb-item"><a href="~/Perfume/Index">Perfumes</a></li>
+                    @if (Model.Perfume.Id == Guid.Empty)
+                    {
+                        <li class="breadcrumb-item active" aria-current="page">
+                            New Perfume
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Edit Perfume
+                        </li>
+                    }
+
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <form method="post">
+                <input type="hidden" name="Id" value="@Model.Perfume.Id" />
+
+                <label class="form-label" for="PerfumeName">Name</label>
+                <input class="form-control" type="text" name="Name" id="PerfumeName" value="@Model.Perfume.Id" />
+
+                <label class="form-label" for="PerfumeVolume">Volume</label>
+                <input class="form-control" type="text" name="Volume" id="PerfumeVolume" value="@Model.Perfume.Volume" />
+
+                <label class="form-label" for="PerfumePrice">Price</label>
+                <input class="form-control" type="text" name="Price" id="PerfumePrice" value="@Model.Perfume.Price" />
+
+                <label class="form-label" for="PerfumeBrand">Brand</label>
+                <select class="form-select" name="Brand.Id" id="BrandName">
+                    @foreach (var brand in Model.BrandList)
+                    {
+                        if (brand.Id == Model.Perfume?.Brand?.Id)
+                        {
+                            <option value="@brand.Id" selected>@brand.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@brand.Id">@brand.Name</option>
+                        }
+                    }
+                </select>
+                @if (Model.Perfume.Id == Guid.Empty)
+                {
+                    <input class="btn btn-primary mt-3" type="submit" value="Add New" formaction="~/Perfume/SavePerfume" />
+                }
+                else
+                {
+                    <input class="btn btn-success mt-3" type="submit" value="Save Changes" formaction="~/Perfume/UpdatePerfume" />
+                }
+            </form>
+        </div>
+    </div>
+</div>  

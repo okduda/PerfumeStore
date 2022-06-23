@@ -1,0 +1,62 @@
+﻿@model BusinessLayer.ViewModels.BrandFormViewModel
+@{
+    Layout = "_Layout";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-light p-3">
+                    <li class="breadcrumb-item"><a href="~/Admin/Index">Admin Page</a></li>
+                    <li class="breadcrumb-item"><a href="~/Brand/Index">Brands</a></li>
+                    @if (Model.Brand.Id == Guid.Empty)
+                    {
+                        <li class="breadcrumb-item active" aria-current="page">
+                            New Brand
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Edit Brand
+                        </li>
+                    }
+
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <form method="post">
+                <input type="hidden" name="Id" value="@Model.Brand.Id" />
+
+                <label class="form-label" for="BrandName">Name</label>
+                <input class="form-control" type="text" name="Name" id="BrandName" value="@Model.Brand.Name" />
+
+                <label class="form-label" for="CountryName">Country</label>
+                <select class="form-select" name="Country" id="CountryName">
+                    @foreach (var country in Model.CountryList)
+                    {
+                        if (country == Model.Brand.Country)
+                        {
+                            <option value="@country" selected>@country</option>
+                        }
+                        else
+                        {
+                            <option value="@country">@country</option>
+                        }
+                    }
+                </select>
+                @if (Model.Brand.Id == Guid.Empty)
+                {
+                    <input class="btn btn-primary mt-3" type="submit" value="Add New" formaction="~/Brand/SaveBrand" />
+                }
+                else
+                {
+                    <input class="btn btn-success mt-3" type="submit" value="Save Changes" formaction="~/Brand/UpdateBrand" />
+                }
+            </form>
+        </div>
+    </div>
+</div>

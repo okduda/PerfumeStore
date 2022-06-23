@@ -1,0 +1,68 @@
+﻿@model BusinessLayer.ViewModels.UserFormViewModel
+@{
+    Layout = "_Layout";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-light p-3">
+                    <li class="breadcrumb-item"><a href="~/Admin/Index">Admin Page</a></li>
+                    <li class="breadcrumb-item"><a href="~/User/Index">Users</a></li>
+                    @if (Model.User.Id == Guid.Empty)
+                    {
+                        <li class="breadcrumb-item active" aria-current="page">
+                            New User
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Edit User
+                        </li>
+                    }
+
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <form method="post">
+                <input type="hidden" name="Id" value="@Model.User.Id" />
+
+                <label class="form-label" for="UserName">Name</label>
+                <input class="form-control" type="text" name="Name" id="UserName" value="@Model.User.Name" />
+
+                <label class="form-label" for="UserEmail">Email</label>
+                <input class="form-control" type="text" name="Email" id="UserEmail" value="@Model.User.Email" />
+
+                <label class="form-label" for="UserPassword">Password</label>
+                <input class="form-control" type="text" name="Password" id="UserPassword" value="@Model.User.Password" />
+
+                <label class="form-label" for="RoleName">Role</label>
+                <select class="form-select" name="Role.Id" id="RoleName">
+                    @foreach (var role in Model.UserRoleList)
+                    {
+                        if (role.Id == Model.User?.Role?.Id)
+                        {
+                            <option value="@role.Id" selected>@role.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@role.Id">@role.Name</option>
+                        }
+                    }
+                </select>
+                @if (Model.User.Id == Guid.Empty)
+                {
+                    <input class="btn btn-primary mt-3" type="submit" value="Add New" formaction="~/User/SaveUser" />
+                }
+                else
+                {
+                    <input class="btn btn-success mt-3" type="submit" value="Save Changes" formaction="~/User/UpdateUser" />
+                }
+            </form>
+        </div>
+    </div>
+</div>  
